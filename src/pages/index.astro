@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getFeaturedCaseStudies, siteContent } from "../data/projects";
+
+const featuredCaseStudies = getFeaturedCaseStudies();
+---
+
+<Layout>
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">{siteContent.name}</h1>
+        <p class="hero-tagline">{siteContent.tagline}</p>
+        <p class="hero-intro">{siteContent.intro}</p>
+      </div>
+    </section>
+
+    <!-- Featured Case Studies Section -->
+    <section id="work" class="section">
+      <div class="container">
+        <div class="projects-header">
+          <h2>Selected Work</h2>
+          <a href="/projects" class="link">View all projects</a>
+        </div>
+        <div class="projects-grid">
+          {featuredCaseStudies.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+      <div class="container contact-inner">
+        <div class="contact-text">
+          <h2>Let's connect</h2>
+          <p>Open to new opportunities and collaborations.</p>
+        </div>
+        <div class="contact-links">
+          <a href={`mailto:${siteContent.email}`} class="button">Email me</a>
+          <a
+            href={siteContent.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,211 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { projects, isCaseStudy, isVisualProject } from "../../data/projects";
+import type { Project, CaseStudy, VisualProject } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+// Find next/previous projects within the same type for navigation
+const sameTypeProjects = projects.filter((p) => p.type === project.type);
+const currentIndex = sameTypeProjects.findIndex((p) => p.slug === project.slug);
+const prevProject = currentIndex > 0 ? sameTypeProjects[currentIndex - 1] : null;
+const nextProject = currentIndex < sameTypeProjects.length - 1 ? sameTypeProjects[currentIndex + 1] : null;
+
+// Get description based on project type
+const description = isCaseStudy(project) ? project.overview : project.summary;
+---
+
+<Layout title={project.title} description={description}>
+  <Header />
+
+  <main>
+    {isCaseStudy(project) ? (
+      <!-- CASE STUDY TEMPLATE -->
+      <article class="case-study">
+        <section class="project-hero">
+          <div class="container">
+            <span class="project-type-label">Case Study</span>
+            <h1>{project.title}</h1>
+            <p class="hero-tagline">{project.summary}</p>
+
+            <dl class="project-meta">
+              <div>
+                <dt>Year</dt>
+                <dd>{project.year}</dd>
+              </div>
+              <div>
+                <dt>Role</dt>
+                <dd>{project.role}</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="project-content">
+              <div class="project-section">
+                <h2>Overview</h2>
+                <p>{project.overview}</p>
+              </div>
+
+              <div class="project-section">
+                <h2>Problem</h2>
+                <p>{project.problem}</p>
+              </div>
+
+              <div class="project-section">
+                <h2>Approach</h2>
+                <p>{project.approach}</p>
+              </div>
+
+              <div class="project-section">
+                <h2>Outcome</h2>
+                <p>{project.outcome}</p>
+              </div>
+            </div>
+
+            {project.images.length > 0 && (
+              <div class="project-gallery">
+                {project.images.map((image, index) => (
+                  <img
+                    src={image}
+                    alt={`${project.title} - Image ${index + 1}`}
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </article>
+    ) : (
+      <!-- VISUAL PROJECT TEMPLATE -->
+      <article class="visual-project">
+        <section class="project-hero visual-hero">
+          <div class="container">
+            <span class="project-type-label">Visual / Exploration</span>
+            <h1>{project.title}</h1>
+            {project.description && (
+              <p class="visual-description">{project.description}</p>
+            )}
+            <p class="visual-meta">{project.role} · {project.year}</p>
+          </div>
+        </section>
+
+        <section class="visual-gallery-section">
+          <div class="container">
+            {project.images.length > 0 && (
+              <div class="visual-gallery">
+                {project.images.map((image, index) => (
+                  <figure class="visual-gallery-item">
+                    <img
+                      src={image}
+                      alt={`${project.title} - Image ${index + 1}`}
+                      loading="lazy"
+                    />
+                  </figure>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </article>
+    )}
+
+    <!-- Project Navigation (shared) -->
+    <section class="section">
+      <div class="container">
+        <nav class="project-nav" aria-label="Project navigation">
+          {prevProject ? (
+            <a href={`/projects/${prevProject.slug}`}>
+              &larr; {prevProject.title}
+            </a>
+          ) : (
+            <a href="/projects">&larr; All Projects</a>
+          )}
+          {nextProject ? (
+            <a href={`/projects/${nextProject.slug}`}>
+              {nextProject.title} &rarr;
+            </a>
+          ) : (
+            <a href="/projects">All Projects &rarr;</a>
+          )}
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .project-type-label {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Visual project specific styles */
+  .visual-hero {
+    padding-bottom: var(--space-lg);
+  }
+
+  .visual-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin-top: var(--space-sm);
+  }
+
+  .visual-meta {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-md);
+  }
+
+  .visual-gallery-section {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .visual-gallery {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .visual-gallery-item {
+    margin: 0;
+  }
+
+  .visual-gallery-item img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  /* Two-column layout for visual galleries on larger screens */
+  @media (min-width: 768px) {
+    .visual-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .visual-gallery-item:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

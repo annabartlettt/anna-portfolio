@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteContent } from "../data/projects";
+---
+
+<Layout title="About" description={`About ${siteContent.name} — ${siteContent.title}`}>
+  <Header />
+
+  <main>
+    <section class="about-hero">
+      <div class="container">
+        <h1>About</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-text">
+            <!-- TODO: Replace with your actual bio -->
+            <p class="lead">
+              I'm Anna Bartlett, a product designer passionate about creating clear,
+              purposeful digital experiences that connect people with the products they love.
+            </p>
+            <p>
+              My work spans UX research, interaction design, and visual design. I believe
+              the best designs are invisible — they get out of the way and let people
+              accomplish what they came to do.
+            </p>
+            <p>
+              When I'm not designing, you'll find me exploring creative coding,
+              experimenting with typography, or thinking about the intersection of
+              technology and human connection.
+            </p>
+            <p>
+              Currently open to new opportunities. Let's talk.
+            </p>
+          </div>
+
+          <div class="about-details">
+            <div class="detail-group">
+              <h3>Currently</h3>
+              <p>Seeking new opportunities</p>
+            </div>
+            <div class="detail-group">
+              <h3>Previously</h3>
+              <!-- TODO: Add your previous roles -->
+              <p>Product design roles</p>
+            </div>
+            <div class="detail-group">
+              <h3>Education</h3>
+              <!-- TODO: Add your education -->
+              <p>Design education</p>
+            </div>
+            <div class="detail-group">
+              <h3>Connect</h3>
+              <p>
+                <a href={`mailto:${siteContent.email}`} class="link">Email</a>
+                <br />
+                <a href={siteContent.linkedin} target="_blank" rel="noopener noreferrer" class="link">LinkedIn</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .about-hero {
+    padding-top: calc(var(--space-3xl) + 60px);
+    padding-bottom: var(--space-lg);
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-3xl);
+  }
+
+  @media (max-width: 768px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  .about-text {
+    max-width: 600px;
+  }
+
+  .about-text .lead {
+    font-size: var(--text-xl);
+    line-height: 1.5;
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-text p {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .detail-group h3 {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .detail-group p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+</style>

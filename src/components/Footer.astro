@@ -1,0 +1,14 @@
+---
+import { siteContent } from "../data/projects";
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>&copy; {currentYear} {siteContent.name}</p>
+    <div class="footer-links">
+      <a href={`mailto:${siteContent.email}`}>Email</a>
+      <a href={siteContent.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
