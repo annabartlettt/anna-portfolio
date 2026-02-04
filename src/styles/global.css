@@ -7,40 +7,51 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Newsreader", Georgia, serif;
 
-  /* Font Sizes - Fluid scale */
-  --text-sm: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
-  --text-xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
-  --text-2xl: clamp(2rem, 1.5rem + 2vw, 3rem);
-  --text-3xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  /* Font Sizes - Refined scale for better hierarchy */
+  --text-xs: 0.75rem;
+  --text-sm: clamp(0.8125rem, 0.8rem + 0.1vw, 0.875rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-2xl: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
+  --text-3xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);
+  --text-4xl: clamp(2.75rem, 2rem + 3.75vw, 4.5rem);
+
+  /* Line Heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+  --leading-loose: 1.8;
 
   /* Colors */
   --color-text: #1a1a1a;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #999999;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #888888;
+  --color-text-muted: #aaaaaa;
   --color-background: #fafafa;
   --color-surface: #ffffff;
-  --color-border: #e5e5e5;
-  --color-border-hover: #cccccc;
+  --color-border: #e8e8e8;
+  --color-border-light: #f0f0f0;
   --color-accent: #1a1a1a;
 
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 5rem;
-  --space-3xl: 8rem;
+  /* Spacing - Expanded scale */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 1rem;      /* 16px */
+  --space-md: 1.5rem;    /* 24px */
+  --space-lg: 2rem;      /* 32px */
+  --space-xl: 3rem;      /* 48px */
+  --space-2xl: 5rem;     /* 80px - section spacing */
+  --space-3xl: 6rem;     /* 96px */
+  --space-4xl: 8rem;     /* 128px */
 
   /* Layout */
   --max-width: 1200px;
-  --content-width: 720px;
+  --content-width: 680px;
 
   /* Transitions */
   --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
+  --transition-base: 200ms ease;
 }
 
 /* =============================================================================
@@ -64,7 +75,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: 1.6;
+  line-height: var(--leading-normal);
   color: var(--color-text);
   background-color: var(--color-background);
 }
@@ -105,28 +116,31 @@ h2,
 h3,
 h4 {
   font-weight: 500;
-  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: var(--text-3xl);
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
 }
 
 h2 {
   font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
 }
 
 h3 {
   font-size: var(--text-xl);
+  line-height: var(--leading-snug);
 }
 
 h4 {
   font-size: var(--text-lg);
+  line-height: var(--leading-snug);
 }
 
 p {
-  max-width: 65ch;
+  max-width: 60ch;
 }
 
 .text-secondary {
@@ -146,6 +160,12 @@ p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-xl);
+  }
 }
 
 .section {
@@ -254,15 +274,15 @@ p {
 }
 
 /* =============================================================================
-   HERO
+   HERO (Homepage)
    ============================================================================= */
 
 .hero {
-  min-height: 80vh;
+  min-height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: calc(var(--space-3xl) + 60px);
+  padding-top: calc(var(--space-4xl) + 60px);
   padding-bottom: var(--space-2xl);
 }
 
@@ -273,14 +293,16 @@ p {
 .hero-tagline {
   font-size: var(--text-xl);
   color: var(--color-text-secondary);
-  max-width: 600px;
-  margin-bottom: var(--space-md);
+  max-width: 560px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-sm);
 }
 
 .hero-intro {
   font-size: var(--text-lg);
   color: var(--color-text-secondary);
-  max-width: 540px;
+  max-width: 480px;
+  line-height: var(--leading-relaxed);
 }
 
 @media (max-width: 768px) {
@@ -303,7 +325,7 @@ p {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-lg);
 }
 
@@ -321,19 +343,18 @@ p {
   display: block;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
   overflow: hidden;
   transition: border-color var(--transition-base), transform var(--transition-base);
 }
 
 .project-card:hover {
-  border-color: var(--color-border-hover);
+  border-color: var(--color-text-tertiary);
   transform: translateY(-2px);
 }
 
 .project-card-image {
   aspect-ratio: 4 / 3;
-  background-color: #f0f0f0;
+  background-color: var(--color-border-light);
   overflow: hidden;
 }
 
@@ -356,6 +377,7 @@ p {
   font-size: var(--text-lg);
   font-weight: 500;
   margin-bottom: var(--space-xs);
+  line-height: var(--leading-snug);
 }
 
 .project-card-meta {
@@ -363,83 +385,6 @@ p {
   gap: var(--space-sm);
   font-size: var(--text-sm);
   color: var(--color-text-tertiary);
-}
-
-/* =============================================================================
-   PROJECT DETAIL PAGE
-   ============================================================================= */
-
-.project-hero {
-  padding-top: calc(var(--space-3xl) + 60px);
-  padding-bottom: var(--space-2xl);
-}
-
-.project-meta {
-  display: flex;
-  gap: var(--space-xl);
-  margin-top: var(--space-lg);
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-}
-
-.project-meta dt {
-  color: var(--color-text-tertiary);
-  margin-bottom: var(--space-xs);
-}
-
-.project-meta dd {
-  font-weight: 500;
-  color: var(--color-text);
-}
-
-.project-content {
-  max-width: var(--content-width);
-}
-
-.project-section {
-  margin-bottom: var(--space-2xl);
-}
-
-.project-section h2 {
-  font-size: var(--text-lg);
-  font-weight: 500;
-  margin-bottom: var(--space-sm);
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.project-section p {
-  font-size: var(--text-lg);
-  line-height: 1.7;
-}
-
-.project-gallery {
-  margin: var(--space-2xl) 0;
-}
-
-.project-gallery img {
-  width: 100%;
-  border-radius: 4px;
-  margin-bottom: var(--space-md);
-}
-
-.project-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--space-xl) 0;
-  border-top: 1px solid var(--color-border);
-  margin-top: var(--space-2xl);
-}
-
-.project-nav a {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  transition: color var(--transition-fast);
-}
-
-.project-nav a:hover {
-  color: var(--color-text);
 }
 
 /* =============================================================================

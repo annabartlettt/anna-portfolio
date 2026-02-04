@@ -1,0 +1,52 @@
+---
+interface Props {
+  tone?: "surface" | "muted";
+  fullWidth?: boolean;
+}
+
+const { tone = "surface", fullWidth = false } = Astro.props;
+---
+
+<div class:list={["block", `block--${tone}`, { "block--full": fullWidth }]}>
+  <slot />
+</div>
+
+<style>
+  .block {
+    background-color: #f8f8f6;
+    border-radius: 8px;
+    padding: var(--space-xl);
+    margin: var(--space-xl) 0;
+  }
+
+  @media (min-width: 768px) {
+    .block {
+      padding: var(--space-2xl);
+    }
+  }
+
+  .block--surface {
+    background-color: #f8f8f6;
+  }
+
+  .block--muted {
+    background-color: var(--color-border-light);
+  }
+
+  .block--full {
+    border-radius: 0;
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .block--full {
+      margin-left: calc(-1 * var(--space-xl));
+      margin-right: calc(-1 * var(--space-xl));
+      padding-left: var(--space-xl);
+      padding-right: var(--space-xl);
+    }
+  }
+</style>

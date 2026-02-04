@@ -1,8 +1,22 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { projects, isCaseStudy, isVisualProject } from "../../data/projects";
+import ProjectSection from "../../components/ProjectSection.astro";
+import ProjectSectionPair from "../../components/ProjectSectionPair.astro";
+import ProjectTextPair from "../../components/ProjectTextPair.astro";
+import ProjectSingleBlock from "../../components/ProjectSingleBlock.astro";
+import ProjectImageBlock from "../../components/ProjectImageBlock.astro";
+import ProjectImage from "../../components/ProjectImage.astro";
+import ProjectNav from "../../components/ProjectNav.astro";
+import ContactCTA from "../../components/ContactCTA.astro";
+import {
+  projects,
+  visualProjects,
+  isCaseStudy,
+  isVisualProject,
+} from "../../data/projects";
 import type { Project, CaseStudy, VisualProject } from "../../data/projects";
 
 export function getStaticPaths() {
@@ -18,82 +32,91 @@ interface Props {
 
 const { project } = Astro.props;
 
-// Find next/previous projects within the same type for navigation
-const sameTypeProjects = projects.filter((p) => p.type === project.type);
-const currentIndex = sameTypeProjects.findIndex((p) => p.slug === project.slug);
-const prevProject = currentIndex > 0 ? sameTypeProjects[currentIndex - 1] : null;
-const nextProject = currentIndex < sameTypeProjects.length - 1 ? sameTypeProjects[currentIndex + 1] : null;
+// Visual project navigation
+const visualIndex = visualProjects.findIndex((p) => p.slug === project.slug);
+const prevVisual = visualIndex > 0 ? visualProjects[visualIndex - 1] : null;
+const nextVisual = visualIndex < visualProjects.length - 1 ? visualProjects[visualIndex + 1] : null;
 
-// Get description based on project type
-const description = isCaseStudy(project) ? project.overview : project.summary;
+// Check if case study has paired sections
+const hasPairedIntro = isCaseStudy(project) && project.context;
 ---
 
-<Layout title={project.title} description={description}>
-  <Header />
-
-  <main>
-    {isCaseStudy(project) ? (
-      <!-- CASE STUDY TEMPLATE -->
-      <article class="case-study">
-        <section class="project-hero">
-          <div class="container">
-            <span class="project-type-label">Case Study</span>
-            <h1>{project.title}</h1>
-            <p class="hero-tagline">{project.summary}</p>
-
-            <dl class="project-meta">
-              <div>
-                <dt>Year</dt>
-                <dd>{project.year}</dd>
-              </div>
-              <div>
-                <dt>Role</dt>
-                <dd>{project.role}</dd>
-              </div>
-            </dl>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="container">
-            <div class="project-content">
-              <div class="project-section">
-                <h2>Overview</h2>
-                <p>{project.overview}</p>
-              </div>
-
-              <div class="project-section">
-                <h2>Problem</h2>
-                <p>{project.problem}</p>
-              </div>
-
-              <div class="project-section">
-                <h2>Approach</h2>
-                <p>{project.approach}</p>
-              </div>
-
-              <div class="project-section">
-                <h2>Outcome</h2>
-                <p>{project.outcome}</p>
-              </div>
-            </div>
-
-            {project.images.length > 0 && (
-              <div class="project-gallery">
-                {project.images.map((image, index) => (
-                  <img
-                    src={image}
-                    alt={`${project.title} - Image ${index + 1}`}
-                    loading="lazy"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      </article>
+{isCaseStudy(project) ? (
+  <CaseStudyLayout project={project}>
+    <!-- Block 1: Overview + Context paired -->
+    {hasPairedIntro ? (
+      <ProjectSectionPair
+        leftKicker="01"
+        leftTitle="Overview"
+        leftContent={project.overview}
+        rightKicker="02"
+        rightTitle="Context"
+        rightContent={project.context!}
+      />
     ) : (
-      <!-- VISUAL PROJECT TEMPLATE -->
+      <ProjectSingleBlock
+        kicker="01"
+        title="Overview"
+        content={project.overview}
+      />
+    )}
+
+    <!-- Block 2: Problem + Approach paired -->
+    <ProjectTextPair
+      leftKicker="03"
+      leftTitle="Problem"
+      leftContent={project.problem}
+      rightKicker="04"
+      rightTitle="Approach"
+      rightContent={project.approach}
+    />
+
+    <!-- Block 3: Image block (if gallery exists) -->
+    {project.gallery && project.gallery.length > 0 && (
+      <ProjectImageBlock
+        images={project.gallery}
+        layout={project.gallery.length > 1 ? "grid" : "single"}
+      />
+    )}
+
+    <!-- Solution (optional) -->
+    {project.solution && (
+      <ProjectSingleBlock
+        kicker="05"
+        title="Solution"
+        content={project.solution}
+      />
+    )}
+
+    <!-- Outcome -->
+    <ProjectSingleBlock
+      kicker={project.solution ? "06" : "05"}
+      title="Outcome"
+      content={project.outcome}
+    />
+
+    <!-- Reflection (optional) -->
+    {project.reflection && (
+      <ProjectSingleBlock
+        title="Reflection"
+        content={project.reflection}
+      />
+    )}
+
+    <!-- Credits (optional) -->
+    {project.credits && (
+      <ProjectSingleBlock
+        title="Credits"
+        content={project.credits}
+      />
+    )}
+  </CaseStudyLayout>
+) : (
+  <!-- VISUAL PROJECT TEMPLATE -->
+  <Layout title={project.title} description={project.summary}>
+    <Header />
+
+    <main>
       <article class="visual-project">
         <section class="project-hero visual-hero">
           <div class="container">
@@ -123,47 +146,48 @@ const description = isCaseStudy(project) ? project.overview : project.summary;
             )}
           </div>
         </section>
+
+        <section class="section">
+          <div class="container">
+            <ContactCTA />
+            <nav class="visual-nav" aria-label="Project navigation">
+              {prevVisual ? (
+                <a href={`/projects/${prevVisual.slug}`}>
+                  &larr; {prevVisual.title}
+                </a>
+              ) : (
+                <a href="/projects">&larr; All Projects</a>
+              )}
+              {nextVisual ? (
+                <a href={`/projects/${nextVisual.slug}`}>
+                  {nextVisual.title} &rarr;
+                </a>
+              ) : (
+                <a href="/projects">All Projects &rarr;</a>
+              )}
+            </nav>
+          </div>
+        </section>
       </article>
-    )}
+    </main>
 
-    <!-- Project Navigation (shared) -->
-    <section class="section">
-      <div class="container">
-        <nav class="project-nav" aria-label="Project navigation">
-          {prevProject ? (
-            <a href={`/projects/${prevProject.slug}`}>
-              &larr; {prevProject.title}
-            </a>
-          ) : (
-            <a href="/projects">&larr; All Projects</a>
-          )}
-          {nextProject ? (
-            <a href={`/projects/${nextProject.slug}`}>
-              {nextProject.title} &rarr;
-            </a>
-          ) : (
-            <a href="/projects">All Projects &rarr;</a>
-          )}
-        </nav>
-      </div>
-    </section>
-  </main>
-
-  <Footer />
-</Layout>
+    <Footer />
+  </Layout>
+)}
 
 <style>
+  /* Visual project styles */
   .project-type-label {
-    display: inline-block;
+    display: block;
     font-size: var(--text-sm);
     color: var(--color-text-tertiary);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     margin-bottom: var(--space-sm);
   }
 
-  /* Visual project specific styles */
   .visual-hero {
+    padding-top: calc(var(--space-3xl) + 60px);
     padding-bottom: var(--space-lg);
   }
 
@@ -172,6 +196,7 @@ const description = isCaseStudy(project) ? project.overview : project.summary;
     color: var(--color-text-secondary);
     max-width: 600px;
     margin-top: var(--space-sm);
+    line-height: 1.5;
   }
 
   .visual-meta {
@@ -195,10 +220,8 @@ const description = isCaseStudy(project) ? project.overview : project.summary;
 
   .visual-gallery-item img {
     width: 100%;
-    border-radius: 4px;
   }
 
-  /* Two-column layout for visual galleries on larger screens */
   @media (min-width: 768px) {
     .visual-gallery {
       grid-template-columns: repeat(2, 1fr);
@@ -207,5 +230,22 @@ const description = isCaseStudy(project) ? project.overview : project.summary;
     .visual-gallery-item:first-child {
       grid-column: 1 / -1;
     }
+  }
+
+  .visual-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .visual-nav a {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    transition: color 150ms ease;
+  }
+
+  .visual-nav a:hover {
+    color: var(--color-text);
   }
 </style>

@@ -1,0 +1,44 @@
+---
+import ProjectBlock from "./ProjectBlock.astro";
+import { siteContent } from "../data/projects";
+---
+
+<ProjectBlock>
+  <aside class="cta">
+    <p class="cta-text">Want to learn more? Let's connect.</p>
+    <div class="cta-links">
+      <a href={`mailto:${siteContent.email}`}>Email</a>
+      <a href={siteContent.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </aside>
+</ProjectBlock>
+
+<style>
+  .cta {
+    text-align: center;
+    padding: var(--space-md) 0;
+  }
+
+  .cta-text {
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .cta-links a {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .cta-links a:hover {
+    color: var(--color-text);
+  }
+</style>

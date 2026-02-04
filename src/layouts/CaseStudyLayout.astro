@@ -1,0 +1,51 @@
+---
+import Layout from "./Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProjectHero from "../components/ProjectHero.astro";
+import ProjectNav from "../components/ProjectNav.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import type { CaseStudy } from "../data/projects";
+import { getPrevCaseStudy, getNextCaseStudy } from "../data/projects";
+
+interface Props {
+  project: CaseStudy;
+}
+
+const { project } = Astro.props;
+const prev = getPrevCaseStudy(project.slug);
+const next = getNextCaseStudy(project.slug);
+---
+
+<Layout title={project.title} description={project.overview}>
+  <Header />
+
+  <main>
+    <article class="case-study">
+      <ProjectHero
+        title={project.title}
+        summary={project.summary}
+        meta={project.meta}
+        brandColor={project.brandColor}
+        heroTextColor={project.heroTextColor}
+      />
+
+      <div class="case-study-content container">
+        <slot />
+      </div>
+
+      <div class="container">
+        <ContactCTA />
+        <ProjectNav prev={prev} next={next} />
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .case-study-content {
+    padding-top: var(--space-lg);
+  }
+</style>

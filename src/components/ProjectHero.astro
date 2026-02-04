@@ -1,0 +1,189 @@
+---
+import type { CaseStudyMeta } from "../data/projects";
+
+interface Props {
+  title: string;
+  summary: string;
+  meta: CaseStudyMeta;
+  brandColor?: string;
+  heroTextColor?: "light" | "dark";
+}
+
+const { title, summary, meta, brandColor, heroTextColor = "dark" } = Astro.props;
+const hasBrandedBg = !!brandColor;
+---
+
+<header
+  class:list={[
+    "hero",
+    { "hero--branded": hasBrandedBg },
+    { "hero--light": heroTextColor === "light" },
+    { "hero--dark": heroTextColor === "dark" },
+  ]}
+  style={brandColor ? `background-color: ${brandColor};` : undefined}
+>
+  <div class="container">
+    <div class="hero-content">
+      <span class="label">Case Study</span>
+      <h1 class="title">{title}</h1>
+      <p class="summary">{summary}</p>
+    </div>
+
+    <dl class="meta">
+      <div class="meta-item">
+        <dt>Role</dt>
+        <dd>{meta.role}</dd>
+      </div>
+      {meta.timeline && (
+        <div class="meta-item">
+          <dt>Timeline</dt>
+          <dd>{meta.timeline}</dd>
+        </div>
+      )}
+      {meta.team && (
+        <div class="meta-item">
+          <dt>Team</dt>
+          <dd>{meta.team}</dd>
+        </div>
+      )}
+      {meta.client && (
+        <div class="meta-item">
+          <dt>Client</dt>
+          <dd>{meta.client}</dd>
+        </div>
+      )}
+    </dl>
+  </div>
+</header>
+
+<style>
+  .hero {
+    padding-top: calc(var(--space-4xl) + 60px);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .hero--branded {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: calc(50vw - 50%);
+    padding-right: calc(50vw - 50%);
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Dark text (default) */
+  .hero--dark .label {
+    color: var(--color-text-muted);
+  }
+
+  .hero--dark .title {
+    color: var(--color-text);
+  }
+
+  .hero--dark .summary {
+    color: var(--color-text-secondary);
+  }
+
+  .hero--dark .meta {
+    border-top-color: var(--color-border-light);
+  }
+
+  .hero--dark .meta-item dt {
+    color: var(--color-text-muted);
+  }
+
+  .hero--dark .meta-item dd {
+    color: var(--color-text);
+  }
+
+  /* Light text (for dark backgrounds) */
+  .hero--light .label {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero--light .title {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .hero--light .summary {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .hero--light .meta {
+    border-top-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .hero--light .meta-item dt {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero--light .meta-item dd {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Shared styles */
+  .label {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: var(--space-md);
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-md);
+  }
+
+  .summary {
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid;
+  }
+
+  .meta-item {
+    text-align: center;
+  }
+
+  .meta-item dt {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .meta-item dd {
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: calc(var(--space-2xl) + 60px);
+    }
+
+    .meta {
+      gap: var(--space-lg);
+    }
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import ProjectBlock from "./ProjectBlock.astro";
+
+interface Props {
+  leftKicker?: string;
+  leftTitle: string;
+  leftContent: string;
+  rightKicker?: string;
+  rightTitle: string;
+  rightContent: string;
+}
+
+const {
+  leftKicker,
+  leftTitle,
+  leftContent,
+  rightKicker,
+  rightTitle,
+  rightContent
+} = Astro.props;
+---
+
+<ProjectBlock>
+  <div class="pair">
+    <article class="pair__card">
+      {leftKicker && <div class="pair__kicker">{leftKicker}</div>}
+      <h2 class="pair__title">{leftTitle}</h2>
+      <p class="pair__content">{leftContent}</p>
+    </article>
+
+    <article class="pair__card">
+      {rightKicker && <div class="pair__kicker">{rightKicker}</div>}
+      <h2 class="pair__title">{rightTitle}</h2>
+      <p class="pair__content">{rightContent}</p>
+    </article>
+  </div>
+</ProjectBlock>
+
+<style>
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .pair {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+    }
+  }
+
+  .pair__kicker {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .pair__title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-md);
+  }
+
+  .pair__content {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-secondary);
+    max-width: 42ch;
+  }
+</style>

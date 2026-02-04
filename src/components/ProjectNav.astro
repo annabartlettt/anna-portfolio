@@ -1,0 +1,94 @@
+---
+import type { CaseStudy } from "../data/projects";
+
+interface Props {
+  prev: CaseStudy | null;
+  next: CaseStudy | null;
+}
+
+const { prev, next } = Astro.props;
+---
+
+<nav class="nav" aria-label="Project navigation">
+  <a href="/projects" class="nav-link">
+    <span class="nav-label">Back</span>
+    <span class="nav-title">All Projects</span>
+  </a>
+
+  <div class="nav-adjacent">
+    {prev && (
+      <a href={`/projects/${prev.slug}`} class="nav-link">
+        <span class="nav-label">Previous</span>
+        <span class="nav-title">{prev.title}</span>
+      </a>
+    )}
+    {next && (
+      <a href={`/projects/${next.slug}`} class="nav-link nav-next">
+        <span class="nav-label">Next</span>
+        <span class="nav-title">{next.title}</span>
+      </a>
+    )}
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-lg);
+  }
+
+  .nav-link {
+    display: block;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    opacity: 0.6;
+  }
+
+  .nav-label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .nav-title {
+    display: block;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: var(--leading-snug);
+  }
+
+  .nav-adjacent {
+    display: flex;
+    gap: var(--space-xl);
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .nav-adjacent {
+      width: 100%;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .nav-next {
+      text-align: right;
+    }
+  }
+</style>

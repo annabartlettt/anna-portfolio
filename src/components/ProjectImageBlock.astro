@@ -1,0 +1,63 @@
+---
+import ProjectBlock from "./ProjectBlock.astro";
+
+interface ImageItem {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  images: ImageItem[];
+  layout?: "single" | "grid";
+}
+
+const { images, layout = "single" } = Astro.props;
+const isSingle = layout === "single" || images.length === 1;
+---
+
+<ProjectBlock>
+  <div class:list={["images", { "images--grid": !isSingle }]}>
+    {images.map((img) => (
+      <figure class="images__item">
+        <img src={img.src} alt={img.alt} loading="lazy" />
+        {img.caption && <figcaption>{img.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+</ProjectBlock>
+
+<style>
+  .images {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .images--grid {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .images--grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .images__item {
+    margin: 0;
+  }
+
+  .images__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .images__item figcaption {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-sm);
+    line-height: var(--leading-normal);
+  }
+</style>
