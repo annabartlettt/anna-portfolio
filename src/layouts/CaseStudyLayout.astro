@@ -18,7 +18,10 @@ const next = getNextCaseStudy(project.slug);
 ---
 
 <Layout title={project.title} description={project.overview}>
-  <Header />
+  <Header
+    brandColor={project.brandColor}
+    heroTextColor={project.heroTextColor}
+  />
 
   <main>
     <article class="case-study">

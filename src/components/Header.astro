@@ -1,8 +1,24 @@
 ---
 import { siteContent } from "../data/projects";
+
+interface Props {
+  brandColor?: string;
+  heroTextColor?: "light" | "dark";
+}
+
+const { brandColor, heroTextColor } = Astro.props;
+const hasBranded = !!brandColor;
 ---
 
-<header class="header">
+<header
+  class:list={[
+    "header",
+    { "header--branded": hasBranded },
+    { "header--light": heroTextColor === "light" },
+    { "header--dark": heroTextColor === "dark" },
+  ]}
+  style={brandColor ? `background-color: ${brandColor};` : undefined}
+>
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Home">{siteContent.name}</a>
     <nav class="nav" aria-label="Main navigation">
@@ -11,3 +27,41 @@ import { siteContent } from "../data/projects";
     </nav>
   </div>
 </header>
+
+<style>
+  /* Branded header - light text variant (for dark backgrounds) */
+  .header--light .logo {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .header--light .nav a {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .header--light .nav a:hover,
+  .header--light .nav a:focus {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .header--light.header--branded {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Branded header - dark text variant (for light backgrounds) */
+  .header--dark.header--branded .logo {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .header--dark.header--branded .nav a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .header--dark.header--branded .nav a:hover,
+  .header--dark.header--branded .nav a:focus {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .header--dark.header--branded {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+</style>
