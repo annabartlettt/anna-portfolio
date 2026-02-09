@@ -24,16 +24,25 @@
   --leading-relaxed: 1.7;
   --leading-loose: 1.8;
 
-  /* Colors */
-  --color-text: #1a1a1a;
+  /* Colors - Primary palette */
+  --color-primary: #2547F7;
+  --color-primary-hover: #1a36c4;
+  --color-accent: #FEB606;
+  --color-accent-hover: #e5a405;
+
+  /* Colors - Text */
+  --color-text: #2A292E;
   --color-text-secondary: #555555;
   --color-text-tertiary: #888888;
   --color-text-muted: #aaaaaa;
-  --color-background: #fafafa;
-  --color-surface: #ffffff;
+
+  /* Colors - Surfaces */
+  --color-background: #FBFAF4;
+  --color-surface: #FBFAF4;
+  --color-surface-1: #FBFAF4;
+  --color-surface-2: #FEF7F7;
   --color-border: #e8e8e8;
   --color-border-light: #f0f0f0;
-  --color-accent: #1a1a1a;
 
   /* Spacing - Expanded scale */
   --space-xs: 0.5rem;    /* 8px */
@@ -186,6 +195,11 @@ p {
 .link {
   position: relative;
   display: inline-block;
+  color: var(--color-primary);
+}
+
+.link:hover {
+  color: var(--color-primary-hover);
 }
 
 .link::after {
