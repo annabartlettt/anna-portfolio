@@ -14,7 +14,7 @@ const { kicker, title, content } = Astro.props;
   <div class="single">
     {kicker && <div class="single__kicker">{kicker}</div>}
     <h2 class="single__title">{title}</h2>
-    <p class="single__content">{content}</p>
+    <p class="single__content" set:html={content} />
   </div>
 </ProjectBlock>
 

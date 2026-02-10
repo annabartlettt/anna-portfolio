@@ -26,13 +26,13 @@ const {
       <article class="pair__card">
         <div class="pair__kicker">{leftKicker}</div>
         <h2 class="pair__title">{leftTitle}</h2>
-        <p class="pair__content">{leftContent}</p>
+        <p class="pair__content" set:html={leftContent} />
       </article>
 
       <article class="pair__card">
         <div class="pair__kicker">{rightKicker}</div>
         <h2 class="pair__title">{rightTitle}</h2>
-        <p class="pair__content">{rightContent}</p>
+        <p class="pair__content" set:html={rightContent} />
       </article>
     </div>
   </ProjectBlock>
