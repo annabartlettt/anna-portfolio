@@ -477,6 +477,11 @@ p {
   font-weight: 500;
   margin-bottom: var(--space-xs);
   line-height: var(--leading-snug);
+  transition: color 250ms ease;
+}
+
+.project-card:hover .project-card-title {
+  color: var(--card-brand-color, var(--color-text));
 }
 
 .project-card-meta {

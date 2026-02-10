@@ -1,14 +1,20 @@
 ---
 import type { Project } from "../data/projects";
+import { isCaseStudy } from "../data/projects";
 
 interface Props {
   project: Project;
 }
 
 const { project } = Astro.props;
+const brandColor = isCaseStudy(project) && project.brandColor ? project.brandColor : null;
 ---
 
-<a href={`/projects/${project.slug}`} class="project-card">
+<a
+  href={`/projects/${project.slug}`}
+  class="project-card"
+  style={brandColor ? `--card-brand-color: ${brandColor}` : undefined}
+>
   <div class="project-card-image">
     <img src={project.thumbnail} alt={`${project.title} thumbnail`} loading="lazy" />
   </div>
