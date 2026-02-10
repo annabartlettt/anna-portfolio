@@ -71,8 +71,17 @@ const hasPairedIntro = isCaseStudy(project) && project.context;
       rightContent={project.approach}
     />
 
-    <!-- Block 3: Image block (if gallery exists) -->
-    {project.gallery && project.gallery.length > 0 && (
+    <!-- Block 3: Image blocks (if imageBlocks exists) -->
+    {project.imageBlocks && project.imageBlocks.map((block) => (
+      <ProjectImageBlock
+        title={block.title}
+        images={block.images}
+        layout={block.layout}
+      />
+    ))}
+
+    <!-- Fallback: Legacy gallery (if no imageBlocks but gallery exists) -->
+    {!project.imageBlocks && project.gallery && project.gallery.length > 0 && (
       <ProjectImageBlock
         images={project.gallery}
         layout={project.gallery.length > 1 ? "grid" : "single"}
@@ -94,6 +103,14 @@ const hasPairedIntro = isCaseStudy(project) && project.context;
       title="Outcome"
       content={project.outcome}
     />
+
+    <!-- Key Impacts (optional) -->
+    {project.keyImpacts && project.keyImpacts.length > 0 && (
+      <ProjectSingleBlock
+        title="Key Impacts"
+        content={`<ul>${project.keyImpacts.map(impact => `<li>${impact}</li>`).join('')}</ul>`}
+      />
+    )}
 
     <!-- Reflection (optional) -->
     {project.reflection && (

@@ -46,4 +46,23 @@ const { kicker, title, content } = Astro.props;
     line-height: var(--leading-loose);
     color: var(--color-text-secondary);
   }
+
+  .single__content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .single__content :global(li) {
+    position: relative;
+    padding-left: 1.25em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .single__content :global(li)::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+  }
 </style>

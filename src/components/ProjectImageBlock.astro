@@ -2,25 +2,34 @@
 import ProjectBlock from "./ProjectBlock.astro";
 
 interface ImageItem {
-  src: string;
+  src: string | null;
   alt: string;
   caption?: string;
+  placeholderLabel?: string;
 }
 
 interface Props {
+  title?: string;
   images: ImageItem[];
   layout?: "single" | "grid";
 }
 
-const { images, layout = "single" } = Astro.props;
+const { title, images, layout = "single" } = Astro.props;
 const isSingle = layout === "single" || images.length === 1;
 ---
 
 <ProjectBlock>
+  {title && <h3 class="images__title">{title}</h3>}
   <div class:list={["images", { "images--grid": !isSingle }]}>
     {images.map((img) => (
       <figure class="images__item">
-        <img src={img.src} alt={img.alt} loading="lazy" />
+        {img.src ? (
+          <img src={img.src} alt={img.alt} loading="lazy" />
+        ) : (
+          <div class="images__placeholder">
+            <span>{img.placeholderLabel || "Add image"}</span>
+          </div>
+        )}
         {img.caption && <figcaption>{img.caption}</figcaption>}
       </figure>
     ))}
@@ -28,6 +37,13 @@ const isSingle = layout === "single" || images.length === 1;
 </ProjectBlock>
 
 <style>
+  .images__title {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
   .images {
     display: grid;
     gap: var(--space-md);
@@ -52,6 +68,20 @@ const isSingle = layout === "single" || images.length === 1;
     height: auto;
     display: block;
     border-radius: 4px;
+  }
+
+  .images__placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-border-light);
+    border: 2px dashed var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    text-align: center;
+    padding: var(--space-md);
   }
 
   .images__item figcaption {

@@ -19,9 +19,17 @@ interface ProjectBase {
 
 // Image with optional caption
 export interface ProjectImage {
-  src: string;
+  src: string | null;  // null for placeholder
   alt: string;
   caption?: string;
+  placeholderLabel?: string;  // Label shown when src is null
+}
+
+// Image block for case studies (groups of images with layout)
+export interface ImageBlock {
+  title?: string;
+  layout: "single" | "grid";
+  images: ProjectImage[];
 }
 
 // Case study metadata for hero
@@ -55,6 +63,12 @@ export interface CaseStudy extends ProjectBase {
 
   // Structured images with captions (optional upgrade from images[])
   gallery?: ProjectImage[];
+
+  // Image blocks with layout control
+  imageBlocks?: ImageBlock[];
+
+  // Key impacts/highlights (optional bullet list)
+  keyImpacts?: string[];
 }
 
 // Visual project: image-forward, minimal text
@@ -130,27 +144,60 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "vetted",
-    title: "Vetted — Veterinary Care Platform",
-    summary: "Designing a seamless experience for pet owners and veterinary teams",
-    role: "Product Designer",
-    year: "2023",
+    title: "Vetted",
+    summary: "A two-sided platform for trusted, specialized veterinary care",
+    role: "UX/UI Designer",
+    year: "2025",
     type: "case-study",
     featured: true,
     thumbnail: "/images/placeholder.svg",
     images: ["/images/placeholder.svg"],
     meta: {
-      role: "Product Designer",
-      timeline: "36 weeks",
-      team: "2 designers, 6 engineers",
+      role: "UX/UI Designer",
+      timeline: "Spring 2025",
+      team: "12-person cross-functional team",
       client: "Generate",
     },
-    overview: "Vetted is a veterinary care platform that connects pet owners with clinics through web and mobile experiences. I led product design across both platforms, ensuring a cohesive experience from booking appointments to managing pet health records.",
-    context: "<a href=\"https://generatenu.com/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\">Generate (Northeastern University)</a>, a student-run design and engineering studio, partnered with veterinary clinics to build a modern platform that could compete with legacy systems. The project spanned two phases: a collaborative web platform for clinic staff, followed by a mobile app for pet owners.",
-    problem: "Veterinary clinics relied on fragmented tools—paper records, phone scheduling, and disconnected software. Pet owners had no unified way to manage appointments, access records, or communicate with their care team.",
-    approach: "For the web platform, I designed collaborative features prioritizing real-time sync and intuitive workflows for busy clinic staff. For mobile, I identified core tasks pet owners need on-the-go and redesigned interactions around touch gestures and smaller screen constraints.",
-    solution: "The web platform enables clinic teams to manage appointments, records, and client communication in one place. The mobile app gives pet owners instant access to their pet's health history, appointment booking, and direct messaging with their vet.",
-    outcome: "Launched both platforms with strong adoption from pilot clinics. The constraint of designing for both desktop collaboration and mobile simplicity led to cleaner patterns that we applied across the entire product.",
-    reflection: "This project taught me to think in systems rather than screens. Real-time collaboration introduced edge cases I hadn't anticipated—presence indicators, permission states, offline sync. The mobile constraints forced clarity that improved the web experience too.",
+    brandColor: "#A13307",
+    heroTextColor: "light",
+    overview: "Vetted is a veterinary care platform that helps pet owners find trustworthy, specialized care and follow through during recovery. I supported end-to-end product design across web and mobile, with a focus on trust signals, scalable UI patterns, and clear multi-user workflows.",
+    context: `<a href="https://generatenu.com/" target="_blank" rel="noopener noreferrer" class="link">Generate (Northeastern University)</a>, a student-run product studio, partnered with veterinary clinics to explore a modern platform that could compete with legacy systems. The project spanned two phases: a web experience for clinic staff, followed by a mobile experience for pet owners.`,
+    problem: "Pet owners often struggle to verify whether a provider is qualified for post-op care, medication administration, or special-needs boarding. Existing pet platforms don't meaningfully support recovery workflows, and 'trust' is usually implied rather than proven.",
+    approach: "We combined stakeholder interviews, competitive analysis, and rapid flow mapping to define a two-sided marketplace. We focused the UX on credential verification, role-specific dashboards, and clear coordination—so pet owners could book confidently and providers could manage care without cognitive overload.",
+    solution: "We designed Vetted as a trust-first marketplace with verified provider profiles, geospatial search, and role-specific workflows. The experience centers on credential transparency, clear booking states, and a communication layer that stays attached to real care episodes—not generic messaging.",
+    outcome: "The final prototype established a credible foundation for a specialized-care marketplace: verified profiles, cleaner multi-user coordination, and a scalable component system. The work was presented at Generate's semester-end showcase and validated strong demand for specialized-care discovery—while revealing where onboarding needed to be shorter.",
+    reflection: "Designing a two-sided care marketplace taught me how quickly complexity compounds when multiple roles, pets, and care states intersect. The biggest shift for me was leaning into systems—shared components, clear hierarchy, and consistent patterns—so we could move fast without losing trust or clarity. I also learned how much stronger the design becomes when it's negotiated alongside engineering constraints early, rather than 'handed off' at the end.",
+    imageBlocks: [
+      {
+        title: "Marketplace overview",
+        layout: "grid",
+        images: [
+          { src: null, alt: "Homepage and search entry", caption: "Homepage entry + search results showing filters and trust signals.", placeholderLabel: "Add screenshot: Homepage + Search" },
+          { src: null, alt: "Provider profile with credentials", caption: "Provider profile with verified credentials and service offerings.", placeholderLabel: "Add screenshot: Provider Profile" },
+        ],
+      },
+      {
+        title: "Role-specific dashboards",
+        layout: "grid",
+        images: [
+          { src: null, alt: "Provider dashboard", caption: "Provider dashboard (bookings, patient details, actions, messages).", placeholderLabel: "Add screenshot: Provider Dashboard" },
+          { src: null, alt: "Pet owner dashboard", caption: "Pet owner view (appointments, care timeline, tracking, communication).", placeholderLabel: "Add screenshot: Owner Dashboard" },
+        ],
+      },
+      {
+        title: "Booking + communication flow",
+        layout: "single",
+        images: [
+          { src: null, alt: "Booking flow and careboard messages", caption: "Booking steps + Careboard messaging in-context with the active booking.", placeholderLabel: "Add screenshot: Booking + Careboard" },
+        ],
+      },
+    ],
+    keyImpacts: [
+      "Established trust through credential verification and professional authentication patterns.",
+      "Designed role-specific dashboards that reduced coordination friction across owners and providers.",
+      "Created a scalable component library that supported both web and mobile surfaces.",
+      "Validated demand for specialized-care discovery while identifying onboarding simplification opportunities.",
+    ],
   },
   {
     slug: "spring-2025-class-app",
