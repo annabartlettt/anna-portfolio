@@ -7,9 +7,19 @@ interface Props {
   meta: CaseStudyMeta;
   brandColor?: string;
   heroTextColor?: "light" | "dark";
+  showIcon?: boolean;
+  iconStyle?: "frame" | "none";
 }
 
-const { title, summary, meta, brandColor, heroTextColor = "dark" } = Astro.props;
+const {
+  title,
+  summary,
+  meta,
+  brandColor,
+  heroTextColor = "dark",
+  showIcon = false,
+  iconStyle = "frame"
+} = Astro.props;
 const hasBrandedBg = !!brandColor;
 ---
 
@@ -24,6 +34,14 @@ const hasBrandedBg = !!brandColor;
 >
   <div class="container">
     <div class="hero-content">
+      {showIcon && (
+        <div
+          class:list={["hero-icon", { "hero-icon--frame": iconStyle === "frame" }]}
+          aria-hidden="true"
+        >
+          <slot name="icon" />
+        </div>
+      )}
       <span class="label">Case Study</span>
       <h1 class="title">{title}</h1>
       <p class="summary">{summary}</p>
@@ -123,6 +141,47 @@ const hasBrandedBg = !!brandColor;
 
   .hero--light .meta-item dd {
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Icon slot */
+  .hero-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    animation: iconFadeIn 600ms ease-out forwards;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Frame variant: visible container even when empty */
+  .hero--dark .hero-icon--frame {
+    background-color: var(--color-surface-2);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .hero--light .hero-icon--frame {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  @keyframes iconFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-icon {
+      animation: none;
+      opacity: 1;
+    }
   }
 
   /* Shared styles */
