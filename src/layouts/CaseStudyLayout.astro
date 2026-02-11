@@ -10,9 +10,11 @@ import { getPrevCaseStudy, getNextCaseStudy } from "../data/projects";
 
 interface Props {
   project: CaseStudy;
+  showIcon?: boolean;
+  iconStyle?: "frame" | "none";
 }
 
-const { project } = Astro.props;
+const { project, showIcon = false, iconStyle = "frame" } = Astro.props;
 const prev = getPrevCaseStudy(project.slug);
 const next = getNextCaseStudy(project.slug);
 ---
@@ -31,7 +33,11 @@ const next = getNextCaseStudy(project.slug);
         meta={project.meta}
         brandColor={project.brandColor}
         heroTextColor={project.heroTextColor}
-      />
+        showIcon={showIcon}
+        iconStyle={iconStyle}
+      >
+        <slot name="hero-icon" slot="icon" />
+      </ProjectHero>
 
       <div class="case-study-content container">
         <slot />

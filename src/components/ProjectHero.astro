@@ -157,6 +157,15 @@ const hasBrandedBg = !!brandColor;
     pointer-events: none;
   }
 
+  /* Icon color inheritance */
+  .hero--dark .hero-icon {
+    color: var(--color-text);
+  }
+
+  .hero--light .hero-icon {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
   /* Frame variant: visible container even when empty */
   .hero--dark .hero-icon--frame {
     background-color: var(--color-surface-2);

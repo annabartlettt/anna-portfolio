@@ -19,6 +19,9 @@ import {
 } from "../../data/projects";
 import type { Project, CaseStudy, VisualProject } from "../../data/projects";
 
+// Case study icons
+import vettedLogo from "../../assets/logos/vetted_logo.svg";
+
 export function getStaticPaths() {
   return projects.map((project) => ({
     params: { slug: project.slug },
@@ -39,10 +42,23 @@ const nextVisual = visualIndex < visualProjects.length - 1 ? visualProjects[visu
 
 // Check if case study has paired sections
 const hasPairedIntro = isCaseStudy(project) && project.context;
+
+// Check for Vetted case study (has custom icon)
+const isVetted = project.slug === "vetted";
 ---
 
 {isCaseStudy(project) ? (
-  <CaseStudyLayout project={project}>
+  <CaseStudyLayout project={project} showIcon={isVetted} iconStyle="frame">
+    {isVetted && (
+      <img
+        slot="hero-icon"
+        src={vettedLogo.src}
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+        class="hero-icon-img"
+      />
+    )}
     <!-- Block 1: Overview + Context paired -->
     {hasPairedIntro ? (
       <ProjectSectionPair
@@ -193,6 +209,14 @@ const hasPairedIntro = isCaseStudy(project) && project.context;
 )}
 
 <style>
+  /* Hero icon image sizing */
+  .hero-icon-img {
+    width: 40px;
+    height: auto;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
   /* Visual project styles */
   .project-type-label {
     display: block;
