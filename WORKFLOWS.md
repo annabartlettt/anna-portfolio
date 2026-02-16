@@ -44,3 +44,51 @@
 
 **Recommendation:**
 Consider adding lightweight section jump links for longer case studies like Vetted.
+
+---
+
+## Workflow 2 — About Page Flow
+
+**Overall status: ✅ Pass with notes**
+
+### Step-by-Step Verification
+
+| Step | Element | Status | Notes |
+|------|---------|--------|-------|
+| 1 | Navigate to `/about` | ✓ | Page loads, header navigation intact |
+| 2 | Hero + first paragraph | ✓ | "About" heading, lead paragraph introduces designer identity |
+| 3 | Scroll through sections | ✓ | Two-column layout: bio (left), details sidebar (right) |
+| 4 | Skills, focus, values | ⚠️ | Mentioned briefly in prose; no explicit skills list |
+| 5 | Path back to work/contact | ⚠️ | Contact links present; no in-page CTA to projects |
+
+### Expected Results Check
+
+| Criteria | Status | Observation |
+|----------|--------|-------------|
+| Designer focus clear in <15 sec | ✓ | Lead paragraph states "product designer" + focus areas |
+| No redundancy with landing | ✓ | Expands on landing intro without repetition |
+| "Who I am" → "What I do" transition | ⚠️ | Bio flows well; details sidebar feels placeholder-light |
+| At least one natural next action | ⚠️ | Email/LinkedIn present; no "View Work" CTA on page |
+
+### Edge Cases
+
+| Scenario | Status | Notes |
+|----------|--------|-------|
+| Skim read | ✓ | Lead paragraph + sidebar headings provide quick scan |
+| Deep read | ⚠️ | Bio is complete; sidebar sections (Previously, Education) are placeholder |
+| Direct link from case study | ⚠️ | No return path to projects except header nav |
+
+### Findings
+
+**Observations:**
+- Sidebar sections "Previously" and "Education" contain placeholder text
+- No explicit skills/tools list (only mentioned in prose)
+- No in-page CTA linking to projects or featured work
+- Contact path exists (Email, LinkedIn) but sits in sidebar, not primary flow
+- Page feels structurally complete but content-light in details column
+
+### Phase E Follow-ups
+
+- Replace placeholder sidebar content (Previously, Education)
+- Add lightweight "View Selected Work" CTA (non-primary)
+- Optional: add compact skills/tools list once content stabilizes
