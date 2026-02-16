@@ -589,6 +589,98 @@ p {
 }
 
 /* =============================================================================
+   NARRATIVE UTILITIES
+   ============================================================================= */
+
+/* Lead sentence - bold opener */
+.lead {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Highlight - soft gradient underline */
+.hl {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-accent) 25%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent) 25%, transparent) 35%,
+    transparent 35%
+  );
+  padding: 0 2px;
+}
+
+/* Muted text */
+.muted {
+  color: var(--color-text-tertiary);
+}
+
+/* Strong + em in serif body */
+strong {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+em {
+  font-style: italic;
+}
+
+/* =============================================================================
+   FEATURE GRID (for solution features)
+   ============================================================================= */
+
+.feature-grid {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-surface-2);
+  transition: border-color var(--transition-fast);
+}
+
+.feature-row:hover {
+  border-color: var(--color-border);
+}
+
+.feature-row__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.feature-row__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.feature-row__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.feature-row:hover .feature-row__label {
+  color: var(--feature-brand-color, var(--color-primary));
+}
+
+.feature-row__desc {
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+/* =============================================================================
    REDUCED MOTION
    ============================================================================= */
 

@@ -11,6 +11,7 @@ import ProjectImageBlock from "../../components/ProjectImageBlock.astro";
 import ProjectImage from "../../components/ProjectImage.astro";
 import ProjectNav from "../../components/ProjectNav.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
+import FeatureGrid from "../../components/FeatureGrid.astro";
 import {
   projects,
   visualProjects,
@@ -107,6 +108,13 @@ const isVetted = project.slug === "vetted";
         title="Solution"
         content={project.solution}
       />
+    )}
+
+    <!-- Feature Grid (optional, for solutions with structured features) -->
+    {project.features && project.features.length > 0 && (
+      <div class="container feature-grid-wrapper">
+        <FeatureGrid features={project.features} brandColor={project.brandColor} />
+      </div>
     )}
 
     <!-- Outcome -->
@@ -210,6 +218,12 @@ const isVetted = project.slug === "vetted";
     width: 40px;
     height: auto;
     max-height: 40px;
+  }
+
+  /* Feature grid wrapper */
+  .feature-grid-wrapper {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
   }
 
   /* Visual project styles */
