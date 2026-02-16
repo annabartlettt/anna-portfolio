@@ -313,7 +313,7 @@ export const caseStudies: CaseStudy[] = [
     role: "UX Researcher, UX Designer",
     year: "2025",
     type: "case-study",
-    featured: false,
+    featured: true,
     thumbnail: "/images/placeholder.svg",
     images: ["/images/placeholder.svg"],
     meta: {
