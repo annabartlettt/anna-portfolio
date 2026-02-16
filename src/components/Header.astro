@@ -29,18 +29,38 @@ const hasBranded = !!brandColor;
 </header>
 
 <style>
+  /* Header-scoped theme tokens */
+  .header {
+    --header-bg: #688b6c;
+    --header-fg: #f3f9f3;
+    background-color: var(--header-bg);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .header .logo {
+    color: var(--header-fg);
+  }
+
+  .header .nav a {
+    color: var(--header-fg);
+    opacity: 0.85;
+  }
+
+  .header .nav a:hover {
+    opacity: 0.65;
+  }
+
   /* Branded header - light text variant (for dark backgrounds) */
-  .header--light .logo {
-    color: rgba(255, 255, 255, 0.95);
+  .header--light {
+    --header-fg: rgba(255, 255, 255, 0.95);
   }
 
   .header--light .nav a {
-    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.75;
   }
 
-  .header--light .nav a:hover,
-  .header--light .nav a:focus {
-    color: rgba(255, 255, 255, 1);
+  .header--light .nav a:hover {
+    opacity: 1;
   }
 
   .header--light.header--branded {
@@ -56,8 +76,8 @@ const hasBranded = !!brandColor;
     color: rgba(0, 0, 0, 0.6);
   }
 
-  .header--dark.header--branded .nav a:hover,
-  .header--dark.header--branded .nav a:focus {
+  .header--dark.header--branded .nav a:hover {
+    opacity: 1;
     color: rgba(0, 0, 0, 0.9);
   }
 
