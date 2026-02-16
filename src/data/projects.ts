@@ -73,7 +73,7 @@ export interface CaseStudy extends ProjectBase {
 
   // Solution features (for feature grid display)
   features?: {
-    icon: "map" | "playlist" | "translate" | "friends" | "search" | "clock" | "chat" | "book" | "shield" | "badge" | "dashboard";
+    icon: "map" | "playlist" | "translate" | "friends" | "search" | "clock" | "chat" | "book" | "shield" | "badge" | "dashboard" | "circle" | "rings" | "brain" | "eye";
     label: string;
     description: string;
   }[];
@@ -307,25 +307,71 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "spring-2025-class-app",
-    title: "Spring 2025 Class App",
-    summary: "Rethinking the classroom experience (In Progress)",
-    role: "UX Designer",
+    slug: "anocity",
+    title: "Anocity",
+    summary: "Transforming anxiety from stigma to understanding through curious awareness",
+    role: "UX Researcher, UX Designer",
     year: "2025",
     type: "case-study",
     featured: false,
     thumbnail: "/images/placeholder.svg",
     images: ["/images/placeholder.svg"],
     meta: {
-      role: "UX Designer",
-      timeline: "Ongoing",
-      team: "Academic project",
+      role: "UX Researcher & Designer",
+      timeline: "16 weeks",
+      team: "Solo academic project",
     },
-    overview: "An ongoing project exploring how technology can enhance in-person learning without replacing human connection.",
-    problem: "Current classroom apps often distract from learning or create unnecessary friction in student-teacher interactions.",
-    approach: "Researching pain points in current classroom technology and prototyping lightweight interventions that support rather than supplant traditional teaching.",
-    outcome: "Project in progress — focusing on solutions that fade into the background when not needed.",
-    reflection: "Early research revealed that the best classroom tech is invisible. This project is shifting my perspective from 'what can technology add?' to 'what friction can technology remove?'",
+    brandColor: "#7C6A9C",
+    heroTextColor: "light",
+    overview: `<span class="lead">Anocity is a mobile app that reframes anxiety from something to fix into something to explore.</span> It replaces clinical treatment approaches with a <span class="hl">curiosity-driven</span> framework that helps users observe their patterns <strong>without judgment</strong> or pressure to improve. This research-focused academic project, grounded in neuroscience and stigma literature, resulted in both a functional prototype and an academic research paper. <span class="muted">The app avoids clinical diagnosis—language choices were intentional, informed by stigma research.</span>`,
+    context: `<span class="lead">This project emerged from Dr. Donald Robinaugh's Design and Mental Health course at Northeastern.</span> The course explored how design intersects with mental health challenges that affect nearly everyone—and how design can either worsen or improve these experiences. The driving question: how do we make evidence-based research approachable for people who need it?`,
+    problem: `<span class="lead">High-functioning individuals with anxiety often recognize that their hidden patterns are misinterpreted as personality traits.</span> Research revealed a "weak-not-sick" attitude that creates treatment barriers—young adults internalize anxiety as temporary rather than legitimate, pushing it into the shadows. When people realize they need help, appropriate resources aren't clear or accessible. The challenge: create a tool for anyone experiencing daily anxiety who wants to understand themselves better, <strong>not limited to those needing clinical help</strong>.`,
+    approach: `<span class="lead">I grounded the design in three research foundations: neuroscience, stigma literature, and behavioral science.</span> Judson Brewer's research on <span class="hl">curious awareness</span> shows that non-judgmental observation can interrupt automatic anxiety patterns. Stigma research reveals how clinical interfaces reinforce barriers for high-functioning users. Neurobiological research maps anxiety across four interconnected domains: Thoughts, Physical Sensations, Behaviors, and Emotions. These insights reframed the challenge from symptom tracking to <span class="hl">stigma reduction</span>.`,
+    solution: `<span class="lead">Anocity offers four experiential mechanisms that translate neuroscience into everyday tools.</span>`,
+    outcome: `<span class="lead">Academic design critique validated the approach while revealing areas for refinement.</span> Peers and instructors found that clinical language like "symptom selection" contradicted the research goal of reducing barriers—we reframed to "What do you want to explore today?" Color psychology testing revealed bright colors felt "too energetic" and red evoked error associations; we shifted to pastels tested as "calming" and "gentle." The final prototype positions anxiety awareness as <span class="hl">self-discovery learned through experience</span>, not explanation.`,
+    reflection: `<span class="lead">This project taught me what it means to design for mental health—not just creating calming interfaces, but translating clinical psychology into accessible tools that respect the people using them.</span> Research exists that could help millions, but it stays locked in academic journals and clinical settings. Brewer's work on curiosity and anxiety habit loops offers a simple framework, but it was inaccessible to the people who could benefit most. My role as a designer was bridging that gap. The most important realization: <span class="hl">curious awareness can't be learned through tutorials</span>. It has to be practiced and discovered. Sometimes understanding comes from doing, not reading.`,
+    features: [
+      { icon: "circle", label: "Curiosity-Based Exploration", description: "Explore anxiety through self-discovery, recognizing patterns without judgment or stigma" },
+      { icon: "rings", label: "Protective Reflection Tracking", description: "Visual ring system where each reflection adds a colored layer—see patterns, not scores" },
+      { icon: "eye", label: "Personal Validation", description: "Validates your experience without diagnosis—a safe space to explore, not a clinical assessment" },
+      { icon: "brain", label: "Brain Science Made Simple", description: "Complex neuroscience translated into simple, accessible language based on Brewer's research" },
+    ],
+    keyImpacts: [
+      "Created a non-medical approach that breaks stigma through curiosity-based exploration",
+      "Designed a visual ring system transforming anxious habits into observable patterns",
+      "Built a validation experience providing self-awareness without judgment or pressure",
+      "Established research context linking neuroscience to design decisions",
+    ],
+    imageBlocks: [
+      {
+        title: "Domain exploration",
+        layout: "single",
+        images: [
+          { src: null, alt: "Domain selection interface", caption: "Users choose what to explore: Thoughts, Physical Sensations, Behaviors, or Emotions.", placeholderLabel: "Domain selection: What do you want to explore today?" },
+        ],
+      },
+      {
+        title: "Ring visualization",
+        layout: "single",
+        images: [
+          { src: null, alt: "Dartboard ring visualization", caption: "Each reflection adds a colored ring—purple, green, yellow, and blue represent different domains.", placeholderLabel: "Ring system: protective layers, not progress scores" },
+        ],
+      },
+      {
+        title: "Guided reflection",
+        layout: "single",
+        images: [
+          { src: null, alt: "Reflection prompts", caption: "Gentle prompts like 'What if anxiety is just a habit of mind?' encourage thoughtful, optional reflection.", placeholderLabel: "Reflection: optional, gentle, non-pressured" },
+        ],
+      },
+      {
+        title: "Design iteration",
+        layout: "single",
+        images: [
+          { src: null, alt: "Language evolution", caption: "From clinical 'symptom selection' to exploratory 'What do you want to explore today?'", placeholderLabel: "Iteration: clinical → exploratory language" },
+        ],
+      },
+    ],
   },
 ];
 
