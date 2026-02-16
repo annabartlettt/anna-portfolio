@@ -15,6 +15,7 @@ interface ProjectBase {
   featured?: boolean;
   thumbnail: string;
   images: string[];
+  icon?: string;         // Optional project icon (SVG path)
 }
 
 // Image with optional caption
@@ -95,6 +96,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     thumbnail: "/images/placeholder.svg",
     images: ["/images/placeholder.svg"],
+    icon: "/icons/spotify.svg",
     meta: {
       role: "Product Designer",
       timeline: "8 weeks",
@@ -152,6 +154,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     thumbnail: "/images/placeholder.svg",
     images: ["/images/placeholder.svg"],
+    icon: "/icons/vetted.svg",
     meta: {
       role: "UX/UI Designer",
       timeline: "Spring 2025",
